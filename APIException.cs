@@ -1,6 +1,10 @@
 namespace command_line_weather;
 
-public class APIException
+using System;
+
+public class ApiException : Exception
 {
-    
+    public ApiException(string message) : base(message)
+    {
+    }
 }
