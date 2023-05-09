@@ -52,10 +52,11 @@ public class WeatherCenter
             
             var weather = await GetWeather($"https://api.open-meteo.com/v1/forecast?latitude={latitudeString}&longitude={longitudeString}&current_weather=true&timezone=auto");
 
-            var table = new ConsoleTable("Temperature", "Wind Speed");
+            var table = new ConsoleTable("Temperature", "Wind Speed", "Wind Direction");
             table.AddRow(
                 $"{weather.Current_weather.Temperature}°C",
-                $"{weather.Current_weather.Windspeed} kmh"
+                $"{weather.Current_weather.Windspeed} kmh",
+                $"{weather.Current_weather.Winddirection}°"
             );
             
             Console.WriteLine("Current weather for {0}, {1}, {2}", location.City, location.RegionName, location.Country);
