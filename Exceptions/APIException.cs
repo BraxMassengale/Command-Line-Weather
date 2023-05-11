@@ -1,6 +1,4 @@
-namespace command_line_weather;
-
-using System;
+namespace command_line_weather.Exceptions;
 
 public class ApiException : Exception
 {

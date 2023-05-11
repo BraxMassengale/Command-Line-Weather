@@ -1,10 +1,11 @@
 using System.Globalization;
 using System.Net.Http.Headers;
-using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json;
+using command_line_weather.Enums;
+using command_line_weather.Exceptions;
+using command_line_weather.Models;
 using ConsoleTables;
 
-namespace command_line_weather;
+namespace command_line_weather.Commands;
 
 public class WeatherCenter
 {
@@ -49,16 +50,17 @@ public class WeatherCenter
             // Format culturally agnostic strings for the latitude and longitude for API call
             var latitudeString = location.Lat.ToString(CultureInfo.InvariantCulture);
             var longitudeString = location.Lon.ToString(CultureInfo.InvariantCulture);
-            
+
             var weather = await GetWeather($"https://api.open-meteo.com/v1/forecast?latitude={latitudeString}&longitude={longitudeString}&current_weather=true&timezone=auto");
 
-            var table = new ConsoleTable("Temperature", "Wind Speed", "Wind Direction");
+            var table = new ConsoleTable("Conditions", "Temperature", "Wind Speed", "Wind Direction");
             table.AddRow(
+                $"{WeatherCodes.GetDescription(weather.Current_weather.Weathercode)}",
                 $"{weather.Current_weather.Temperature}°C",
                 $"{weather.Current_weather.Windspeed} kmh",
                 $"{weather.Current_weather.Winddirection}°"
             );
-            
+
             Console.WriteLine("Current weather for {0}, {1}, {2}", location.City, location.RegionName, location.Country);
             table.Write();
             Console.WriteLine();

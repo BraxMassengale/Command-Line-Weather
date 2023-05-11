@@ -1,4 +1,4 @@
-namespace command_line_weather;
+namespace command_line_weather.Models;
 
 public class Location
 {
